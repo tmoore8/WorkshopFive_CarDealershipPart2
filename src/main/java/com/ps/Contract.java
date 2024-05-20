@@ -5,16 +5,14 @@ public abstract class Contract {
     private String customerName;
     private String customerEmail;
     private Vehicle vehicleSold;
-    private double price;
-    private double monthlyPayment;
+    protected double totalPrice;
+    protected double monthlyPayment;
 
-    public Contract(String date, String customerName, Vehicle vehicleSold, String customerEmail, double price, double monthlyPayment) {
+    public Contract(String date, String customerName, Vehicle vehicleSold, String customerEmail) {
         this.date = date;
         this.customerName = customerName;
         this.vehicleSold = vehicleSold;
         this.customerEmail = customerEmail;
-        this.price = price;
-        this.monthlyPayment = monthlyPayment;
     }
 
     public String getDate() {
@@ -48,17 +46,19 @@ public abstract class Contract {
     public void setVehicleSold(Vehicle vehicleSold) {
         this.vehicleSold = vehicleSold;
     }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-    public void setMonthlyPayment(double monthlyPayment) {
-        this.monthlyPayment = monthlyPayment;
-    }
     public abstract double getTotalPrice();
     public abstract double getMonthlyPayment();
+    public String getVehicleInfo() {
+        Vehicle vehicle = getVehicleSold();
+        return String.format("%d|%d|%s|%s|%s|%s|%d|%.2f",
+                vehicle.getVin(),
+                vehicle.getYear(),
+                vehicle.getMake(),
+                vehicle.getModel(),
+                vehicle.getVehicleType(),
+                vehicle.getColor(),
+                vehicle.getOdometer(),
+                vehicle.getPrice());
+    }
 }
+
